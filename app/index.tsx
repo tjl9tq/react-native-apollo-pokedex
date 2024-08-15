@@ -4,10 +4,11 @@ import { ThemedText } from "@/components/ThemedText";
 import useGetPokemonSpeciesQuery from "@/hooks/useGetPokemonSpeciesQuery";
 import { useState } from "react";
 import TypeBadge from "@/components/TypeBadge";
+import { router } from "expo-router";
 
 export default function HomeScreen() {
   const { data, loading, error } = useGetPokemonSpeciesQuery();
-  const [pokemonToShow, setPokemonToShow] = useState(6);
+  const [pokemonToShow, setPokemonToShow] = useState(12);
 
   const hideLoadMoreButton = data && pokemonToShow >= data.length;
 
@@ -21,12 +22,9 @@ export default function HomeScreen() {
 
   const handleButtonPress = () => {
     if (!hideLoadMoreButton) {
-      setPokemonToShow((prev) => prev + 6);
+      setPokemonToShow((prev) => prev + 12);
     }
   };
-
-  console.log(data?.slice(10, 16));
-
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
@@ -39,7 +37,13 @@ export default function HomeScreen() {
     >
       <View style={styles.pokemonContainer}>
         {data?.slice(0, pokemonToShow).map((pokemon) => (
-          <View style={styles.pokemon} key={pokemon.id}>
+          <View
+            style={styles.pokemon}
+            key={pokemon.id}
+            onTouchEnd={() => {
+              router.push(`/${pokemon.id}`);
+            }}
+          >
             <View
               style={{
                 backgroundColor: "#f2f2f2",

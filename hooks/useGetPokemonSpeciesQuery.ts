@@ -45,8 +45,6 @@ const useGetPokemonSpeciesQuery = () => {
   const { data, loading, error } =
     useQuery<PokemonSpeciesResponse>(GET_POKEMON_SPECIES);
 
-  console.log(data);
-
   const formattedData = data?.gen1_species.map((pokemon) => {
     const { name, id, pokemon_v2_pokemons } = pokemon;
     return {

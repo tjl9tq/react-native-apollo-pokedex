@@ -10,7 +10,6 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
-import { Text } from "react-native";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -41,8 +40,8 @@ export default function RootLayout() {
     <ApolloProvider client={client}>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          {/* <Stack.Screen name="Home" component={HomeScreen} /> */}
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="[id]" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
       </ThemeProvider>
