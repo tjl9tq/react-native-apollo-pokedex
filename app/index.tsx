@@ -1,10 +1,11 @@
-import { Button, Image, StyleSheet, Text, View } from "react-native";
+import { Button, Image, Pressable, StyleSheet, Text, View } from "react-native";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import useGetPokemonSpeciesQuery from "@/hooks/useGetPokemonSpeciesQuery";
 import { useState } from "react";
 import TypeBadge from "@/components/TypeBadge";
 import { router } from "expo-router";
+import PokemonID from "@/components/PokemonID";
 
 export default function HomeScreen() {
   const { data, loading, error } = useGetPokemonSpeciesQuery();
@@ -50,7 +51,8 @@ export default function HomeScreen() {
                 width: 160,
                 height: 160,
                 borderRadius: 6,
-                margin: "auto",
+                marginHorizontal: "auto",
+                marginBottom: -4,
               }}
             >
               <Image
@@ -63,7 +65,7 @@ export default function HomeScreen() {
               />
             </View>
             <View style={{ marginLeft: 16 }}>
-              <ThemedText>{pokemon?.id}</ThemedText>
+              <PokemonID id={pokemon?.id} />
               <ThemedText
                 style={{ textTransform: "capitalize", marginBottom: 4 }}
               >
@@ -78,8 +80,10 @@ export default function HomeScreen() {
           </View>
         ))}
       </View>
-      <View style={{ marginBottom: 300 }}>
-        <Button onPress={handleButtonPress} title="Load more Pokémon" />
+      <View style={{ marginBottom: 40 }}>
+        <Pressable onPress={handleButtonPress} style={styles.button}>
+          <Text style={styles.buttonText}>Load more Pokémon</Text>
+        </Pressable>
       </View>
     </ParallaxScrollView>
   );
@@ -109,7 +113,7 @@ const styles = StyleSheet.create({
     width: 360,
     height: "auto",
     flexWrap: "wrap",
-    marginBottom: 200,
+    marginBottom: 40,
   },
   pokemon: {
     width: 180,
@@ -120,5 +124,24 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
+  },
+  button: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+    borderRadius: 5,
+    elevation: 3,
+    backgroundColor: "#4aa9d5",
+    width: 200,
+    margin: "auto",
+    cursor: "pointer",
+  },
+  buttonText: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: "bold",
+    letterSpacing: 0.25,
+    color: "white",
   },
 });

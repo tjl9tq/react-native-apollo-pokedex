@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text } from "react-native";
 
-const whiteTextTypes = ["poison", "fire", "water", "bug"];
+const whiteTextTypes = ["poison", "fire", "water", "bug", "fighting"];
 
 const getBackGroundColors = (type: string) => {
   switch (type) {
@@ -22,6 +22,8 @@ const getBackGroundColors = (type: string) => {
       return ["#a4acaf"];
     case "fairy":
       return ["#fdb9e9"];
+    case "fighting":
+      return ["#d56723"];
     default:
       return ["#a4acaf"];
   }
@@ -62,7 +64,7 @@ const styles = StyleSheet.create({
     marginRight: 3,
     textTransform: "none",
     textAlign: "center",
-    borderRadius: 5,
+    borderRadius: 3,
   },
   typeText: {
     fontSize: 11,
