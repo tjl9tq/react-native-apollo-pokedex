@@ -1,10 +1,12 @@
 import { gql, useQuery } from "@apollo/client";
 
 const GET_POKEMON_SPECIES = gql`
-  query GetPokemonSpecies {
+  query GetPokemonSpecies(
+    $orderBy: pokemon_v2_pokemonspecies_order_by = { id: asc }
+  ) {
     gen1_species: pokemon_v2_pokemonspecies(
       where: { pokemon_v2_generation: { name: { _eq: "generation-i" } } }
-      order_by: { id: asc }
+      order_by: [$orderBy]
     ) {
       name
       id
@@ -41,9 +43,19 @@ interface PokemonSpeciesResponse {
   }>;
 }
 
-const useGetPokemonSpeciesQuery = () => {
-  const { data, loading, error } =
-    useQuery<PokemonSpeciesResponse>(GET_POKEMON_SPECIES);
+enum Options {
+  id = "id",
+  name = "name',",
+}
+export type OrderByType = {
+  [key in Options]: "asc" | "desc";
+};
+
+const useGetPokemonSpeciesQuery = (orderBy?: OrderByType) => {
+  const { data, loading, error } = useQuery<PokemonSpeciesResponse>(
+    GET_POKEMON_SPECIES,
+    { variables: { orderBy } }
+  );
 
   const formattedData = data?.gen1_species.map((pokemon) => {
     const { name, id, pokemon_v2_pokemons } = pokemon;

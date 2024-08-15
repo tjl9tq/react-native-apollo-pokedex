@@ -1,6 +1,14 @@
 import { StyleSheet, View, Text } from "react-native";
 
-const whiteTextTypes = ["poison", "fire", "water", "bug", "fighting"];
+const whiteTextTypes = [
+  "poison",
+  "fire",
+  "water",
+  "bug",
+  "fighting",
+  "psychic",
+  "rock",
+];
 
 const getBackGroundColors = (type: string) => {
   switch (type) {
@@ -24,6 +32,12 @@ const getBackGroundColors = (type: string) => {
       return ["#fdb9e9"];
     case "fighting":
       return ["#d56723"];
+    case "psychic":
+      return ["#f366b9"];
+    case "rock":
+      return ["#a38c21"];
+    case "ice":
+      return ["#51c4e7"];
     default:
       return ["#a4acaf"];
   }
@@ -68,6 +82,7 @@ const styles = StyleSheet.create({
   },
   typeText: {
     fontSize: 11,
+    fontWeight: 500,
     lineHeight: 18,
     paddingHorizontal: 18,
     textTransform: "capitalize",
